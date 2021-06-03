@@ -51,7 +51,7 @@
   #        force=yes
   #   with_items:
   #       - "{{ db_homes_installed}}"
-  #   when: apply_patches_db and current_opatch_version.msg is version_compare('12.2.0.1.5', '<')
+  #   when: apply_patches_db and current_opatch_version.msg is version('12.2.0.1.5', '<')
   #   become: yes
   #   become_user: "{{ oracle_user }}"
   #   tags:
@@ -61,7 +61,7 @@
   #   shell: "{{ oracle_patch_stage }}/{{ db_version }}/ocmrsp.expect"
   #   with_items:
   #       - "{{ db_homes_installed}}"
-  #   when: apply_patches_db and current_opatch_version.msg is version_compare('12.2.0.1.5', '<')
+  #   when: apply_patches_db and current_opatch_version.msg is version('12.2.0.1.5', '<')
   #   become: yes
   #   become_user: "{{ oracle_user }}"
   #   changed_when: False

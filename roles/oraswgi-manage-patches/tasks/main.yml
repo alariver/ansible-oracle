@@ -44,7 +44,7 @@
          dest={{ oracle_patch_stage }}/{{ oracle_install_version_gi }}/ocmrsp.expect
          mode=0777
          force=yes
-    when: apply_patches_gi and current_opatch_version is defined and current_opatch_version.msg is version_compare('12.2.0.1.5', '<')
+    when: apply_patches_gi and current_opatch_version is defined and current_opatch_version.msg is version('12.2.0.1.5', '<')
     become: yes
     become_user: "{{ grid_install_user }}"
     tags:
@@ -52,7 +52,7 @@
 
   - name: gi-opatch | Configure ocm.rsp (2)
     shell: "{{ oracle_patch_stage }}/{{ oracle_install_version_gi }}/ocmrsp.expect"
-    when: apply_patches_gi and current_opatch_version is defined and current_opatch_version.msg is version_compare('12.2.0.1.5', '<')
+    when: apply_patches_gi and current_opatch_version is defined and current_opatch_version.msg is version('12.2.0.1.5', '<')
     become: yes
     become_user: "{{ grid_install_user }}"
     changed_when: False

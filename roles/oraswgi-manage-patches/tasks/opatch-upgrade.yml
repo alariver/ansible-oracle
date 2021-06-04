@@ -15,7 +15,7 @@
 #       dest="{{ oracle_home_gi }}/OPatch"
 #       state=absent
 #   become: yes
-#   when: apply_patches_gi and (current_opatch_version.msg is version_compare(gi_patches[oracle_install_version_gi]['opatch_minversion'], '<'))
+#   when: apply_patches_gi and (current_opatch_version.msg is version(gi_patches[oracle_install_version_gi]['opatch_minversion'], '<'))
 
 - name: gi-opatch | Extract OPatch to GI Home
   unarchive:
@@ -26,7 +26,7 @@
       group={{ oracle_group }}
   become: yes
   with_items: "{{oracle_opatch_patch}}"
-  when: apply_patches_gi and item.version == oracle_install_version_gi and oracle_sw_copy and gi_patches is defined and gi_patches[oracle_install_version_gi] is defined  and gi_patches[oracle_install_version_gi]['opatch_minversion'] is defined and (current_opatch_version.msg is version_compare(gi_patches[oracle_install_version_gi]['opatch_minversion'], '<'))
+  when: apply_patches_gi and item.version == oracle_install_version_gi and oracle_sw_copy and gi_patches is defined and gi_patches[oracle_install_version_gi] is defined  and gi_patches[oracle_install_version_gi]['opatch_minversion'] is defined and (current_opatch_version.msg is version(gi_patches[oracle_install_version_gi]['opatch_minversion'], '<'))
   tags:
     - oragridpatchunpack
 
@@ -39,7 +39,7 @@
       group={{ oracle_group }}
   become: yes
   with_items: "{{oracle_opatch_patch}}"
-  when: apply_patches_gi and item.version == oracle_install_version_gi and not oracle_sw_copy and gi_patches is defined and gi_patches[oracle_install_version_gi] is defined and gi_patches[oracle_install_version_gi]['opatch_minversion'] is defined and (current_opatch_version.msg is version_compare(gi_patches[oracle_install_version_gi]['opatch_minversion'], '<'))
+  when: apply_patches_gi and item.version == oracle_install_version_gi and not oracle_sw_copy and gi_patches is defined and gi_patches[oracle_install_version_gi] is defined and gi_patches[oracle_install_version_gi]['opatch_minversion'] is defined and (current_opatch_version.msg is version(gi_patches[oracle_install_version_gi]['opatch_minversion'], '<'))
   tags:
     - oragridpatchunpack
 
@@ -51,6 +51,7 @@
   tags: current_opatch_version
   when: gi_patches is defined and gi_patches[oracle_install_version_gi] is defined and gi_patches[oracle_install_version_gi]['opatch_minversion'] is defined
 
+- debug: var=current_opatch_version.msg
 - debug: var=current_opatch_version.msg
   tags: current_opatch_version
   when: current_opatch_version.changed

@@ -19,7 +19,7 @@
       group={{ oracle_group }}
   become: yes
   with_items: "{{oracle_opatch_patch}}"
-  when: apply_patches_db and item.version == db_version and oracle_sw_copy and db_homes_config[dbh.home]['opatch_minversion'] is defined and (current_opatch_version.msg is version_compare(db_homes_config[dbh.home]['opatch_minversion'], '<'))
+  when: apply_patches_db and item.version == db_version and oracle_sw_copy and db_homes_config[dbh.home]['opatch_minversion'] is defined and (current_opatch_version.msg is version(db_homes_config[dbh.home]['opatch_minversion'], '<'))
   tags:
     - oragridpatchunpack
 
@@ -32,7 +32,7 @@
       group={{ oracle_group }}
   become: yes
   with_items: "{{oracle_opatch_patch}}"
-  when: apply_patches_db and item.version == db_version and not oracle_sw_copy and db_homes_config[dbh.home]['opatch_minversion'] is defined and (current_opatch_version.msg is version_compare(db_homes_config[dbh.home]['opatch_minversion'], '<'))
+  when: apply_patches_db and item.version == db_version and not oracle_sw_copy and db_homes_config[dbh.home]['opatch_minversion'] is defined and (current_opatch_version.msg is version(db_homes_config[dbh.home]['opatch_minversion'], '<'))
   tags:
     - oragridpatchunpack
 
